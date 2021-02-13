@@ -11,7 +11,7 @@
 
 	PROVIDE(_fw_start = .);
 
-	. = ALIGN(0x1000); /* Need this to create proper sections */
+	/* . = ALIGN(0x1000); Need this to create proper sections */
 
 	/* Beginning of the code section */
 

@@ -9,3 +9,6 @@
 
 platform-objs-y += platform.o
 platform-objs-y += sifive_fu540.o
+platform-objs-y += crcntl.o
+platform-objs-y += main.o
+platform-objs-y += uart.o

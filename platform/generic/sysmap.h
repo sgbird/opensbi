@@ -1,0 +1,16 @@
+#ifndef __SYSMAP_H__
+#define __SYSMAP_H__
+
+#ifdef SOCKET1
+  #define SOCKET_OFFSET	0x80000000000
+#else
+  #define SOCKET_OFFSET 0x0
+#endif
+
+#define	UART_BASE		(0xff63000000 + SOCKET_OFFSET)
+#define	CRCNTL_BASE		(0xff60000000 + SOCKET_OFFSET)
+#define COHFAB_CFG_BASE		(0xff02100000 + SOCKET_OFFSET)
+#define CLUSTER0_CFG_BASE	(0xff01000000 + SOCKET_OFFSET)
+#define PCIE_BASE
+
+#endif  // __SYSMAP_H__

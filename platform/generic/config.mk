@@ -18,7 +18,7 @@ platform-runcmd = qemu-system-riscv$(PLATFORM_RISCV_XLEN) -M virt -m 256M \
   -nographic -bios $(build_dir)/platform/generic/firmware/fw_payload.elf
 
 # Blobs to build
-FW_TEXT_START=0x80000000
+FW_TEXT_START=0x80
 FW_DYNAMIC=y
 FW_JUMP=y
 ifeq ($(PLATFORM_RISCV_XLEN), 32)
@@ -38,3 +38,6 @@ else
   FW_PAYLOAD_OFFSET=0x200000
 endif
 FW_PAYLOAD_FDT_ADDR=$(FW_JUMP_FDT_ADDR)
+
+PLATFORM_RISCV_ISA = rv$(PLATFORM_RISCV_XLEN)imafd
+PLATFORM_RISCV_ABI = lp64

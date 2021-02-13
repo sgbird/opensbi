@@ -23,6 +23,7 @@
 #include <sbi_utils/reset/fdt_reset.h>
 
 extern const struct platform_override sifive_fu540;
+extern void system_init(void);
 
 static const struct platform_override *special_platforms[] = {
 	&sifive_fu540,
@@ -77,6 +78,7 @@ unsigned long fw_platform_init(unsigned long arg0, unsigned long arg1,
 	u32 hartid, hart_count = 0;
 	int rc, root_offset, cpus_offset, cpu_offset, len;
 
+	system_init();
 	root_offset = fdt_path_offset(fdt, "/");
 	if (root_offset < 0)
 		goto fail;
