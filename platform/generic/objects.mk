@@ -12,3 +12,5 @@ platform-objs-y += sifive_fu540.o
 platform-objs-y += crcntl.o
 platform-objs-y += main.o
 platform-objs-y += uart.o
+platform-objs-y += tlmm.o
+platform-objs-y += dw_pci.o

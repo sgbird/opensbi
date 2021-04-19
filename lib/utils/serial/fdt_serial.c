@@ -16,6 +16,8 @@ extern struct fdt_serial fdt_serial_uart8250;
 extern struct fdt_serial fdt_serial_sifive;
 extern struct fdt_serial fdt_serial_htif;
 extern struct fdt_serial fdt_serial_shakti;
+extern void uart_putc(char);
+extern int uart_getc(void);
 
 static struct fdt_serial *serial_drivers[] = {
 	&fdt_serial_uart8250,
@@ -26,15 +28,20 @@ static struct fdt_serial *serial_drivers[] = {
 
 static void dummy_putc(char ch)
 {
+	uart_putc(ch);
 }
 
 static int dummy_getc(void)
 {
-	return -1;
+	return (uart_getc());
 }
 
+static const struct fdt_match serial_dummy_match[] = {
+	{ .compatible = "snps,dw-apb-uart" },
+	{ },
+};
 static struct fdt_serial dummy = {
-	.match_table = NULL,
+	.match_table = serial_dummy_match,
 	.init = NULL,
 	.putc = dummy_putc,
 	.getc = dummy_getc,
@@ -86,7 +93,8 @@ int fdt_serial_init(void)
 	}
 
 	/* Check if we found desired driver */
-	if (current_driver != &dummy)
+	//if (current_driver != &dummy)
+	if (current_driver == &dummy)
 		goto done;
 
 	/* Lastly check all DT nodes */

@@ -5,6 +5,7 @@
 
 #define UART_REG(n)	(UART_BASE + n)
 
+#define RBR	0x0
 #define THR	0x0
 #define	USR	0x7c
 
@@ -14,6 +15,7 @@
 #define FCR	0x8
 #define LCR	0xc
 #define	MCR	0x10
+#define LSR	0x14
 
 void uart_init(void)
 {
@@ -26,13 +28,15 @@ void uart_init(void)
 	__raw_writel(0x0, (void *)UART_REG(DLH));
 
 	__raw_writel(0x23, (void *)UART_REG(LCR));
-	__raw_writel(0x0, (void *)UART_REG(FCR));
+	//__raw_writel(0x0, (void *)UART_REG(FCR));
+	__raw_writel(0x7, (void *)UART_REG(FCR));
 
-	__raw_writel(0x2, (void *)UART_REG(IER));
+	//__raw_writel(0x2, (void *)UART_REG(IER));
+	__raw_writel(0x0, (void *)UART_REG(IER));
 }
 
-/*
-void sbi_putc(char str)
+
+void uart_putc(char str)
 {
 	volatile uint32_t status;
 	
@@ -42,4 +46,13 @@ void sbi_putc(char str)
 
 	__raw_writel(str, (void *)(UART_REG(THR)));
 }
-*/
+
+int uart_getc(void)
+{
+	if ( ((__raw_readl((void *)UART_REG(LSR))) & 0x1))
+		return (__raw_readl((void *)UART_REG(RBR)));
+	
+	return -1;
+		
+
+}

@@ -107,7 +107,7 @@ static int irqchip_plic_cold_init(void *fdt, int nodeoff,
 }
 
 static const struct fdt_match irqchip_plic_match[] = {
-	{ .compatible = "riscv,plic0" },
+	{ .compatible = "riscv,plic1" },
 	{ .compatible = "sifive,plic-1.0.0" },
 	{ },
 };
